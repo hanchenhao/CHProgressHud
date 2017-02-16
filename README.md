@@ -9,7 +9,7 @@ CHProgressHud 是一个用于加载数据时全屏显示的HUD，使用Objective
 ##2.	
 将 CHProgressHud 内的源文件添加(拖放)到你的工程。
 ##3.	
-导入 JHUD.h 。
+导入 CHProgressHud.h 。
 #使用
 HudShow 显示动图hud
 HudShowMessage(msg) 显示文字提示信息
