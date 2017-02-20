@@ -11,10 +11,14 @@ CHProgressHud 是一个用于加载数据时全屏显示的HUD，使用Objective
 ##3.	
 导入 CHProgressHud.h 。
 #使用
-###HudShow 显示动图hud
-###HudShowMessage(msg) 显示文字提示信息
-###HudDismiss 关闭hud
-###更多使用方式参考示例代码
+```HudShow //显示动图hud
+```
+
+```HudShowMessage(msg) 显示文字提示信息
+```
+
+```HudDismiss 关闭hud
+```
 
 #效果
 ##gif自定义加载hud
