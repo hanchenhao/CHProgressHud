@@ -21,11 +21,7 @@ const static CGFloat ImageHudConstraint = 93;
 
 @end
 
-@implementation CHProgressHud {
-    NSDate *now;
-    NSString *nowMessage;
-    
-}
+@implementation CHProgressHud
 
 static int count = 0;
 
@@ -98,7 +94,7 @@ static int count = 0;
     [CHProgressHud sharedView].imageView.animationDuration = 2.0f;
     [[CHProgressHud sharedView].imageView startAnimating];
     
-    [CHProgressHud sharedView].hudView.alpha = 0.6;
+    [CHProgressHud sharedView].hudView.alpha = 1;
     
     //  window
     id<UIApplicationDelegate> delegate = ((id<UIApplicationDelegate>)[[UIApplication sharedApplication] delegate]);
@@ -120,14 +116,10 @@ static int count = 0;
 
 
 - (void)showMessage:(NSString *) msg {
-    if (nowMessage.length > 0 && [nowMessage isEqualToString:msg] && now && ![self compareCurrentTime:now longerThenTime:(0.1)])  return;
-    
-    nowMessage = msg;
-    now = [NSDate date];
+
 
     count += 1;
-    [CHProgressHud sharedView].hudView.alpha = 0.6; //透明度
-        
+    [CHProgressHud sharedView].hudView.alpha = 1; //透明度
     [CHProgressHud sharedView].label.text = msg;    //信息
     [CHProgressHud sharedView].label.numberOfLines = 1;
     [[CHProgressHud sharedView].label sizeToFit];
@@ -157,7 +149,7 @@ static int count = 0;
     [window.layer addSublayer:maskLayer];
     [window addSubview:[CHProgressHud sharedView]];
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [[CHProgressHud sharedView] dismis];
 
     });
@@ -208,7 +200,10 @@ static int count = 0;
 }
 
 + (void) dismis {
+    dispatch_async(dispatch_get_main_queue(), ^{
         [[CHProgressHud sharedView] dismis];
+
+    });
 
 }
 
@@ -242,14 +237,5 @@ static int count = 0;
     return result;
 }
 
-
-
-- (BOOL) compareCurrentTime:(NSDate *) compareDate longerThenTime:(CGFloat) time {
-    
-    NSTimeInterval  timeInterval = [compareDate timeIntervalSinceNow];
-    timeInterval = -timeInterval;
-    return (timeInterval/60) < (time) ? NO : YES;
-    
-}
 
 @end
